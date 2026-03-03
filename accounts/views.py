@@ -6,17 +6,25 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 User=get_user_model()
 
 # Create your views here.
 class RegisterView(APIView):
+    permission_classes = [AllowAny]
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        return Response(serializer.data)
+        serializer.save()
+        return Response({
+            "message": "User created successfully",
+            "user": serializer.data
+        })
     
 
 class LoginView(APIView):
+    permission_classes = [AllowAny]
+    
     def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
