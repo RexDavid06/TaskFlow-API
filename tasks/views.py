@@ -3,12 +3,14 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from .models import Task
 from .serializers import TaskSerializer
 from rest_framework.permissions import IsAuthenticated
+from .utils import TaskPagination
 
 
 # Create your views here.
 class TaskListCreatView(ListCreateAPIView):
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = TaskPagination
 
     def get_queryset(self):
         # this ensures users only see their tasks
@@ -22,6 +24,7 @@ class TaskListCreatView(ListCreateAPIView):
 class TaskRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = TaskPagination
 
     def get_queryset(self):
         # this ensures users only see their tasks
