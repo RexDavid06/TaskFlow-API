@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework', 
+    'django_filters',
 
-    'accounts',
+    'accounts', 
     'tasks',
 ]
 
@@ -63,6 +64,9 @@ REST_FRAMEWORK = {
         'user': '1000/day',
         'anon': '100/day',
     },
+    'DEFAULT_FILTER_BACKEND': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ]
 }
 
 SIMPLE_JWT = {
